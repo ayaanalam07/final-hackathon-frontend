@@ -77,7 +77,7 @@ const Register = () => {
           type="number"
           placeholder="CNIC"
         />
-        {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.CNIC.message}</p>}
+        {errors.CNIC && <p className="text-red-500 text-start mx-1 mb-2">{errors.CNIC.message}</p>}
 
        
 
