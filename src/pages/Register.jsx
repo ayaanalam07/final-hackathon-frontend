@@ -74,7 +74,7 @@ const Register = () => {
         <input
           className="input input-bordered w-full mb-3"
           {...register("password", { required: "password is required" })}
-          type="number"
+          type="password"
           placeholder="password"
         />
         {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.password.message}</p>}
