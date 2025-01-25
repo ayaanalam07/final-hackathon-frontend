@@ -20,7 +20,7 @@ const Register = () => {
         const formData = new FormData();
         formData.append("username", data.name);
         formData.append("email", data.email);
-        formData.append("CNIC",  data.CNIC);
+        formData.append("cnic",  data.cnic);
 
         try {
           const response = await axios.post(
@@ -73,11 +73,11 @@ const Register = () => {
 
         <input
           className="input input-bordered w-full mb-3"
-          {...register("CNIC", { required: "CNIC is required" })}
+          {...register("cnic", { required: "cnic is required" })}
           type="number"
-          placeholder="CNIC"
+          placeholder="cnic"
         />
-        {errors.CNIC && <p className="text-red-500 text-start mx-1 mb-2">{errors.CNIC.message}</p>}
+        {errors.cnic && <p className="text-red-500 text-start mx-1 mb-2">{errors.cnic.message}</p>}
 
        
 
