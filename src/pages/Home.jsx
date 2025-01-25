@@ -6,7 +6,7 @@ const Home = () => {
 
   const allBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/blogs/allBlogs");
+      const response = await axios.get("https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/blogs/allBlogs");
       console.log(response.data.data);
       setBlogs(response.data.data);
     } catch (error) {

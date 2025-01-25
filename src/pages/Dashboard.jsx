@@ -31,7 +31,7 @@ const Dashboard = () => {
             return;
           }
           try {
-            const response = await axios.get(`http://localhost:3000/api/blogs/singleBlog/${userId}`);
+            const response = await axios.get(`https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/blogs/singleBlog/${userId}`);
             setSingleUser(response.data.data);
             setLoadingBlogs(false);
           } catch (error) {
@@ -55,7 +55,7 @@ const Dashboard = () => {
           }
           try {
             const response = await axios.post(
-              "http://localhost:3000/api/blogs/createBlog",
+              "https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/blogs/createBlog",
               {
                 title: data.title,
                 description: data.description,
@@ -79,7 +79,7 @@ const Dashboard = () => {
         const deleteBlog = async(_id)=>{
           console.log("blog ID",_id);
 
-          const response = await axios.delete(`http://localhost:3000/api/blogs/deleteBlog/${_id}`)
+          const response = await axios.delete(`https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/blogs/deleteBlog/${_id}`)
           console.log(response);
           singleUserBlog()
           
@@ -98,7 +98,7 @@ const Dashboard = () => {
           }
 
           
-          const response = await axios.put(`http://localhost:3000/api/blogs/editBlog/${_id}`,
+          const response = await axios.put(`https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/blogs/editBlog/${_id}`,
             {
               title: titleupdate,
               description: descriptionupdate,

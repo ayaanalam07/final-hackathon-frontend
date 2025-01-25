@@ -20,7 +20,7 @@ const Login = () => {
         try {
             setLoading(true)
           const response = await axios.post(
-            "http://localhost:3000/api/users/login",
+            "https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/users/login",
             data
           );
           reset();

@@ -25,7 +25,7 @@ const Register = () => {
 
         try {
           const response = await axios.post(
-            "http://localhost:3000/api/users/register",
+            "https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/users/register",
             formData,
             {
               headers: {
