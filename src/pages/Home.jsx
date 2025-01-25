@@ -1,67 +1,124 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([]);
+  const loanOptions = {
+    "Wedding Loan": ["Valima", "Furniture", "Valima Food", "Jahez"],
+    "Home Construction Loan": ["Structure", "Finishing"],
+    "Business Startup Loan": ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
+    "Education Loan": ["University Fees", "Child Fees Loan"],
+  };
+  const navigate = useNavigate()
 
-  const allBlogs = async () => {
+  const [loanName, setLoanName] = useState("");
+  const [subcategories, setSubcategories] = useState("");
+  const [maxLoan, setMaxLoan] = useState("");
+  const [loanPeriod, setloanPeriod] = useState("");
+
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+
     try {
-      const response = await axios.get("https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/blogs/allBlogs");
-      console.log(response.data.data);
-      setBlogs(response.data.data);
+      const response = await axios.post("https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/loan/applyLoan", {
+        loanName,
+        subcategories,
+        maxLoan,
+        loanPeriod,
+      });
+      console.log(response);
+      alert("Loan application submitted successfully!");
+      navigate("/Register")
+
     } catch (error) {
-      console.error(error);
-      setBlogs([]);
+      console.error("Error applying for loan:", error);
     }
   };
 
-  useEffect(() => {
-    allBlogs();
-  }, []);
-
   return (
-    <>
-      <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4">All Blogs</h1>
-        {blogs.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogs.map((blog) => (
-              <div key={blog._id} className="card w-full bg-base-100 shadow-xl" style={{ minHeight: '250px' }}>
-                <div className="card-body" style={{ padding: '16px' }}>
-                  {blog.author.image && (
-                    <img
-                      src={blog.author.image} 
-                      alt="User Profile"
-                      style={{
-                        width: '50px',
-                        height: '50px',
-                        borderRadius: '50%',
-                        objectFit: 'cover',
-                      }}
-                    />
-                  )}
-                  <h2 className="card-title">{blog.title}</h2>
-                  <div
-                    style={{
-                      maxHeight: '100px',
-                      overflowY: 'auto',
-                      overflowX: 'hidden',
-                      display: 'block',
-                      paddingRight: '5px',
-                    }}
-                  >
-                    {blog.description}
-                  </div>
-                </div>
-              </div>
+    <div className="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
+      <h1 className="text-2xl font-semibold text-center mb-6">Apply for a Loan</h1>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Loan Type Dropdown */}
+        <div>
+          <label className="block mb-2 font-medium">Loan Type</label>
+          <select
+            value={loanName}
+            onChange={(e) => {
+              setLoanName(e.target.value);
+              setSubcategories('');
+            }}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          >
+            <option value="" disabled>Select Loan Type</option>
+            {Object.keys(loanOptions).map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
             ))}
+          </select>
+        </div>
+
+        {/* Subcategory Dropdown */}
+        {loanName && (
+          <div>
+            <label className="block mb-2 font-medium">Subcategory</label>
+            <select
+              value={subcategories}
+              onChange={(e) => setSubcategories(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            >
+              <option value="" disabled>Select Subcategory</option>
+              {loanOptions[loanName].map((sub) => (
+                <option key={sub} value={sub}>
+                  {sub}
+                </option>
+              ))}
+            </select>
           </div>
-        ) : (
-          <p>No blogs available.</p>
         )}
-      </div>
-    </>
+
+        {/* Amount Input */}
+        <div>
+          <label className="block mb-2 font-medium">Amount (PKR)</label>
+          <input
+            type="number"
+            value={maxLoan}
+            onChange={(e) => setMaxLoan(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter loan amount"
+            required
+          />
+        </div>
+
+        {/* Duration Input */}
+        <div>
+          <label className="block mb-2 font-medium">Duration (Years)</label>
+          <input
+            type="number"
+            value={loanPeriod}
+            onChange={(e) => setloanPeriod(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter duration in years"
+            required
+          />
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+        >
+          Submit Loan Application
+        </button>
+      </form>
+    </div>
   );
 };
 
 export default Home;
+
