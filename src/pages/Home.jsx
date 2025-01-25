@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,7 @@ const Home = () => {
   const loanOptions = {
     "Wedding Loan": ["Valima", "Furniture", "Valima Food", "Jahez"],
     "Home Construction Loan": ["Structure", "Finishing"],
-    "Business Startup Loan": ["Buy Stall", "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
+    "Business Startup Loan": ["Buy Stall" , "Advance Rent for Shop", "Shop Assets", "Shop Machinery"],
     "Education Loan": ["University Fees", "Child Fees Loan"],
   };
   const navigate = useNavigate()
