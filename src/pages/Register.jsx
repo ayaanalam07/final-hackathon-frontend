@@ -20,8 +20,7 @@ const Register = () => {
         const formData = new FormData();
         formData.append("username", data.name);
         formData.append("email", data.email);
-        formData.append("password",  data.password);
-        formData.append("image",  data.image[0]); 
+        formData.append("CNIC",  data.CNIC);
 
         try {
           const response = await axios.post(
@@ -36,11 +35,8 @@ const Register = () => {
           
           console.log("User registered successfully:", response.data);
           const userId = response.data.data._id; 
-          const image = response.data.data.image; 
           localStorage.setItem("userId",userId)
-          localStorage.setItem("imageUrl",image)
           console.log("User id:", response.data.data._id);
-          console.log("User image", response.data.data.image);
           navigate("/login")
         } catch (error) {
           console.error("Error registering user:", error.response?.data || error.message);
@@ -77,18 +73,13 @@ const Register = () => {
 
         <input
           className="input input-bordered w-full mb-3"
-          {...register("password", { required: "Password is required" })}
-          type="password"
-          placeholder="Password"
+          {...register("CNIC", { required: "CNIC is required" })}
+          type="number"
+          placeholder="CNIC"
         />
-        {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.password.message}</p>}
+        {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.CNIC.message}</p>}
 
-        <input
-          className="file-input file-input-bordered file-input-info w-full mb-3"
-          {...register("image", { required: "Image is required" })}
-          type="file"
-        />
-        {errors.image && <p className="text-red-500 text-start mb-2 mx-1">{errors.image.message}</p>}
+       
 
         <button className="btn bg-info hover:bg-info w-full text-lg text-white" type="submit">
           Submit
