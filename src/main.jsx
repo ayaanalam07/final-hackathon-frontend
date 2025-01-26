@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
-        path: '/Home',
+        path: '/',
         element: <Home />
       },
       {
