@@ -26,52 +26,82 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center mt-5 p-5">
-      <form
-        style={{ boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px" }}
-        className="p-8 w-full max-w-md bg-white rounded-lg"
-        onSubmit={handleSubmit}
-      >
-        <h1 className="text-lg font-bold p-2 mb-5">Register</h1>
-
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
+    <form
+      className="bg-white shadow-lg rounded-2xl w-full max-w-lg p-8 border-t-4 border-blue-500"
+      onSubmit={handleSubmit}
+    >
+      <h1 className="text-2xl font-bold text-center text-blue-600 mb-6">
+        Saylani Welfare Registration
+      </h1>
+  
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
+          Username
+        </label>
         <input
-          className="input input-bordered w-full mb-3"
-          type="text"
+          id="username"
           name="username"
+          type="text"
           value={formData.username}
           onChange={handleChange}
-          placeholder="Username"
+          placeholder="Enter your full name"
+          className="input input-bordered w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
           required
         />
-
+      </div>
+  
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+          Email Address
+        </label>
         <input
-          className="input input-bordered w-full mb-3"
-          type="email"
+          id="email"
           name="email"
+          type="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email"
+          placeholder="Enter your email"
+          className="input input-bordered w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
           required
         />
-
+      </div>
+  
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="CNIC">
+          CNIC
+        </label>
         <input
-          className="input input-bordered w-full mb-3"
-          type="text"
+          id="CNIC"
           name="CNIC"
+          type="text"
           value={formData.CNIC}
           onChange={handleChange}
-          placeholder="CNIC (e.g., 12345-1234567-1)"
+          placeholder="Enter CNIC (12345-1234567-1)"
+          className="input input-bordered w-full rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500"
           required
         />
-
-        <button className="btn bg-info hover:bg-info w-full text-lg text-white" type="submit">
-          Register
-        </button>
-
-        {message && <p className="text-center mt-3 text-blue-500">{message}</p>}
-      </form>
-    </div>
-  );
+      </div>
+  
+      <button
+        className="w-full py-3 bg-blue-500 text-white rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300"
+        type="submit"
+      >
+        Register
+      </button>
+  
+      {message && (
+        <p className="mt-4 text-center text-blue-500 text-sm font-medium">
+          {message}
+        </p>
+      )}
+  
+      <p className="text-sm text-center text-gray-500 mt-6">
+        Powered by <span className="font-bold text-blue-500">Saylani Welfare</span>
+      </p>
+    </form>
+  </div>
+    );
 };
 
 export default Register;
