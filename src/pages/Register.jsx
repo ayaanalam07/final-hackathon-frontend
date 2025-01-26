@@ -10,8 +10,8 @@ const Register = () => {
   const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { username, value } = e.target;
+    setFormData({ ...formData, [username]: value });
   };
 
   const handleSubmit = async (e) => {
