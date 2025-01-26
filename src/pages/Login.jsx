@@ -2,11 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch(); 
   const navigate = useNavigate();
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -20,10 +19,7 @@ const Login = () => {
       if (response.data && response.data.accessToken) {
         const { accessToken, user } = response.data;
 
-        // Store accessToken and userId using Redux
-        dispatch(setUser({ userId: user.id, accessToken }));
 
-        // Store in localStorage
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("userId", user.id);
 
@@ -78,3 +74,5 @@ const Login = () => {
     </div>
   );
 };
+
+export default Login
