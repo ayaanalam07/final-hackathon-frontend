@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../Redux/reducer/userSlice";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);

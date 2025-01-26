@@ -1,126 +1,92 @@
-import React, { useState } from "react";
 import axios from "axios";
+import {useForm} from "react-hook-form";
+
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    CNIC: "",
-  });
-  const [message, setMessage] = useState("");
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/users/register",
-        formData
-      );
-      setMessage(response.data.message);
-    } catch (error) {
-      console.error(
-        "Error registering user:",
-        error.response?.data?.message || error.message
-      );
-      setMessage(error.response?.data?.message || "An error occurred");
-    }
-  };
+  
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+      } = useForm()
+  
+    
+    const submissions = async (data) => {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("cnic", data.cnic);
+    
+      try {
+        const response = await axios.post(
+          "https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/users/register",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log("User registered successfully:", response.data);
+      } catch (error) {
+        console.error("Error registering user:", error);
+        if (error.response) {
+          console.error("API response error:", error.response.data);
+        } else if (error.request) {
+          console.error("Network error: No response received", error.request);
+        } else {
+          console.error("Error:", error.message);
+        }
+      }
+    };
 
+
+
+    
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-100 to-blue-50">
+    <>
+    <div className="flex justify-center mt-5 p-5">
       <form
-        className="bg-white shadow-xl rounded-2xl w-full max-w-lg p-8 border border-gray-200"
-        onSubmit={handleSubmit}
+        style={{ boxShadow: "rgba(0, 0, 0, 0.1) 0px 4px 12px" }}
+        className="p-8 w-full max-w-md bg-white rounded-lg"
+        onSubmit={handleSubmit(submissions)}
       >
-        <h1 className="text-3xl font-bold text-center text-blue-700 mb-6">
-          Saylani Welfare Registration
-        </h1>
-        <p className="text-center text-gray-600 mb-4">
-          Register now and be a part of our welfare family.
-        </p>
+        <h1 className="text-lg font-bold p-2 mb-5">Register</h1>
+        <input
+          className="input input-bordered w-full mb-3"
+          {...register("name", { required: "Name is required" })}
+          type="text"
+          placeholder="Username"
+        />
+        {errors.name && <p className="text-red-500 mb-2 text-start mx-1">{errors.name.message}</p>}
 
-        <div className="mb-5">
-          <label
-            className="block text-sm font-semibold text-gray-700 mb-1"
-            htmlFor="username"
-          >
-            Username
-          </label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Enter your full name"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            required
-          />
-        </div>
+        <input
+          className="input input-bordered w-full mb-3"
+          {...register("email", { required: "Email is required" })}
+          type="email"
+          placeholder="Email"
+        />
+        {errors.email && <p className="text-red-500 mb-2 text-start mx-1">{errors.email.message}</p>}
 
-        <div className="mb-5">
-          <label
-            className="block text-sm font-semibold text-gray-700 mb-1"
-            htmlFor="email"
-          >
-            Email Address
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            required
-          />
-        </div>
+        <input
+          className="input input-bordered w-full mb-3"
+          {...register("password", { required: "Password is required" })}
+          type="password"
+          placeholder="Password"
+        />
+        {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.password.message}</p>}
 
-        <div className="mb-5">
-          <label
-            className="block text-sm font-semibold text-gray-700 mb-1"
-            htmlFor="CNIC"
-          >
-            CNIC
-          </label>
-          <input
-            id="CNIC"
-            name="CNIC"
-            type="text"
-            value={formData.CNIC}
-            onChange={handleChange}
-            placeholder="Enter CNIC (12345-1234567-1)"
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            required
-          />
-        </div>
+      
 
-        <button
-          className="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
-          type="submit"
-        >
-          Register
+        <button className="btn bg-info hover:bg-info w-full text-lg text-white" type="submit">
+          Submit
         </button>
-
-        {message && (
-          <p className="mt-4 text-center text-blue-600 text-sm font-medium">
-            {message}
-          </p>
-        )}
-
-        <p className="text-sm text-center text-gray-500 mt-6">
-          Powered by{" "}
-          <span className="font-bold text-blue-600">Saylani Welfare</span>
-        </p>
       </form>
     </div>
-  );
-};
+    </>
+  )
+}
 
-export default Register;
+export default Register
