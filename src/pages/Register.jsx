@@ -22,7 +22,7 @@ const Register = () => {
     
       try {
         const response = await axios.post(
-          "https://gross-vina-final-hackathon-smit-633a1bb1.koyeb.app/api/users/register",
+          "https://boiler-plate-mu.vercel.app/api/user/register",
           formData,
           {
             headers: {
@@ -57,11 +57,11 @@ const Register = () => {
         <h1 className="text-lg font-bold p-2 mb-5">Register</h1>
         <input
           className="input input-bordered w-full mb-3"
-          {...register("username", { required: "Name is required" })}
+          {...register("name", { required: "Name is required" })}
           type="text"
           placeholder="Username"
         />
-        {errors.username && <p className="text-red-500 mb-2 text-start mx-1">{errors.username.message}</p>}
+        {errors.name && <p className="text-red-500 mb-2 text-start mx-1">{errors.name.message}</p>}
 
         <input
           className="input input-bordered w-full mb-3"
@@ -79,7 +79,13 @@ const Register = () => {
         />
         {errors.password && <p className="text-red-500 text-start mx-1 mb-2">{errors.password.message}</p>}
 
-        
+        {/* <input
+          className="file-input file-input-bordered file-input-info w-full mb-3"
+          {...register("imageUrl", { required: "Image is required" })}
+          type="file"
+        />
+        {errors.imageUrl && <p className="text-red-500 text-start mb-2 mx-1">{errors.imageUrl.message}</p>} */}
+
         <button className="btn bg-info hover:bg-info w-full text-lg text-white" type="submit">
           Submit
         </button>
@@ -89,4 +95,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Register
