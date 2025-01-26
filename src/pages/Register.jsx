@@ -57,11 +57,11 @@ const Register = () => {
         <h1 className="text-lg font-bold p-2 mb-5">Register</h1>
         <input
           className="input input-bordered w-full mb-3"
-          {...register("name", { required: "Name is required" })}
+          {...register("username", { required: "Name is required" })}
           type="text"
           placeholder="Username"
         />
-        {errors.name && <p className="text-red-500 mb-2 text-start mx-1">{errors.name.message}</p>}
+        {errors.username && <p className="text-red-500 mb-2 text-start mx-1">{errors.username.message}</p>}
 
         <input
           className="input input-bordered w-full mb-3"
